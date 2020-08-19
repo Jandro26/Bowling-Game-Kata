@@ -1,5 +1,4 @@
 using BowlingGameKata.game.domain;
-using System;
 using Xunit;
 
 namespace BowlingGameTest

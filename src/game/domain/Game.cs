@@ -1,26 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BowlingGameKata.game.domain
 {
     public class Game
     {
-        private int score;
+        private IList<Frame> frames;
+        private Frame frame;
 
         public Game()
         {
-            score = 0;
+            frames = new List<Frame>();
         }
 
         public void Roll(int knockPinNumber)
         {
-            score += knockPinNumber;
+            frame = new Frame();
+            frame.AddRoll(knockPinNumber);
+            frames.Add(frame);
         }
 
         public int Score() 
         {
+            var score = 0;
+            foreach (var frame in frames)
+            {
+                score += frame.Score();
+            }
             return score;
         }
     }

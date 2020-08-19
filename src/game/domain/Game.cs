@@ -16,25 +16,33 @@ namespace BowlingGameKata.game.domain
 
         public void Roll(int knockPinNumber)
         {
-            if ((frame.CountRolls() == 2 || frame.CountFrameRollKnockDownPins() == 10) && frames.Count < 10)
+            if (IsNewFrame())
+                AddToNewFrame(knockPinNumber);
+            else
+                AddToExistingFrame(knockPinNumber);
+        }
+
+        private bool IsNewFrame()
+        => (frame.CountRolls() == 2 || frame.CountFrameRollKnockDownPins() == 10) && frames.Count < 10;
+
+        private void AddToNewFrame(int knockPinNumber)
+        {
+            frame = new Frame();
+            frame.AddRoll(knockPinNumber);
+            frames.Add(frame);
+        }
+
+        private void AddToExistingFrame(int knockPinNumber)
+        {
+            if (frames.Any())
             {
-                frame = new Frame();
+                frame = frames.Last();
                 frame.AddRoll(knockPinNumber);
-                frames.Add(frame);
             }
             else
             {
-                if (frames.Any())
-                {
-                    frame = frames.Last();
-                    frame.AddRoll(knockPinNumber);
-                }
-                else
-                {
-                    frame.AddRoll(knockPinNumber);
-                    frames.Add(frame);
-                }
-                    
+                frame.AddRoll(knockPinNumber);
+                frames.Add(frame);
             }
         }
 
@@ -49,5 +57,6 @@ namespace BowlingGameKata.game.domain
             }
             return score;
         }
+
     }
 }

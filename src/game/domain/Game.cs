@@ -16,10 +16,26 @@ namespace BowlingGameKata.game.domain
 
         public void Roll(int knockPinNumber)
         {
-            if (frame.CountRolls()<2 && frame.CountFrameRollKnockDownPins()<10)
+            if (frame.CountRolls() == 2 || frame.CountFrameRollKnockDownPins() == 10)
+            {
                 frame = new Frame();
-            frame.AddRoll(knockPinNumber);
-            frames.Add(frame);
+                frame.AddRoll(knockPinNumber);
+                frames.Add(frame);
+            }
+            else
+            {
+                if (frames.Any())
+                {
+                    frame = frames.Last();
+                    frame.AddRoll(knockPinNumber);
+                }
+                else
+                {
+                    frame.AddRoll(knockPinNumber);
+                    frames.Add(frame);
+                }
+                    
+            }
         }
 
         public int Score() 

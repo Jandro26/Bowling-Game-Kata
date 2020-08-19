@@ -19,7 +19,7 @@ namespace BowlingGameTest
         [Fact]
         public void It_should_score_an_spare_in_a_frame()
         {
-            var expectedScore = 14;
+            var expectedScore = 18;
             var game = new Game();
             game.Roll(6);
             game.Roll(4);
@@ -31,7 +31,7 @@ namespace BowlingGameTest
         [Fact]
         public void It_should_score_an_strike_in_a_frame()
         {
-            var expectedScore = 14;
+            var expectedScore = 18;
             var game = new Game();
             game.Roll(8);
             game.Roll(2);

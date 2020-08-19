@@ -16,18 +16,30 @@ namespace BowlingGameKata.game.domain
 
         public void AddRoll(int knockDownPins)
         {
-            var roll = new Roll();
-            roll.Score = knockDownPins;
-            rolls.Add(roll);
+            rolls.Add(new Roll(knockDownPins));
         }
 
-        public int Score()
+        public int CountRolls()
+        => rolls.Count();
+
+        public int CountFirstRollKnockDownPins()
+        => rolls[0].Score;
+
+        public int CountFrameRollKnockDownPins()
+        => rolls.Sum(r => r.Score);
+
+        public int Score(Frame frame)
         {
             var score = 0;
             foreach (var roll in rolls)
-            {
+            {   
                 score += roll.Score;
+                if (roll.Score == 10)
+                    score += frame.CountFrameRollKnockDownPins();
             }
+            if (CountFrameRollKnockDownPins() == 10)
+                score += frame.CountFirstRollKnockDownPins();
+
             return score;
         }
     }

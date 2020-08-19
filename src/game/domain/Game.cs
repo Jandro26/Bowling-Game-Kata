@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BowlingGameKata.game.domain
 {
@@ -10,11 +11,13 @@ namespace BowlingGameKata.game.domain
         public Game()
         {
             frames = new List<Frame>();
+            frame = new Frame();
         }
 
         public void Roll(int knockPinNumber)
         {
-            frame = new Frame();
+            if (frame.CountRolls()<2 && frame.CountFrameRollKnockDownPins()<10)
+                frame = new Frame();
             frame.AddRoll(knockPinNumber);
             frames.Add(frame);
         }
@@ -22,9 +25,11 @@ namespace BowlingGameKata.game.domain
         public int Score() 
         {
             var score = 0;
-            foreach (var frame in frames)
+            Frame extraframe = null;
+            foreach (var frame in frames.Reverse())
             {
-                score += frame.Score();
+                score += frame.Score(extraframe);
+                extraframe = frame;
             }
             return score;
         }

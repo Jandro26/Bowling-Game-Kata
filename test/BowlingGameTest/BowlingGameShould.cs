@@ -9,10 +9,10 @@ namespace BowlingGameTest
         [Fact]
         public void It_should_score_the_number_of_knock_down_pins()
         {
-            var knockDownPins = 5;
-            var expectedScore = 5;
+            var expectedScore = 14;
             var game = new Game();
-            game.Roll(knockDownPins);
+            game.Roll(6);
+            game.Roll(8);
             var score = game.Score();
             Assert.True(score == expectedScore);
         }

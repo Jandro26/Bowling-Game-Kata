@@ -8,9 +8,15 @@ namespace BowlingGameKata.game.domain
     public class Game
     {
         private int score;
+
+        public Game()
+        {
+            score = 0;
+        }
+
         public void Roll(int knockPinNumber)
         {
-            score = knockPinNumber;
+            score += knockPinNumber;
         }
 
         public int Score() 

@@ -30,6 +30,7 @@ namespace BowlingGameKata.game.domain
 
         public int Score(Frame frame)
         {
+            if(frame == null) return CountFrameRollKnockDownPins();
             var score = 0;
             foreach (var roll in rolls)
             {   
@@ -37,7 +38,7 @@ namespace BowlingGameKata.game.domain
                 if (roll.Score == 10)
                     score += frame.CountFrameRollKnockDownPins();
             }
-            if (CountFrameRollKnockDownPins() == 10)
+            if (CountFirstRollKnockDownPins()<10 && CountFrameRollKnockDownPins() == 10)
                 score += frame.CountFirstRollKnockDownPins();
 
             return score;

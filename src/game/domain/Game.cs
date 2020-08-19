@@ -16,7 +16,7 @@ namespace BowlingGameKata.game.domain
 
         public void Roll(int knockPinNumber)
         {
-            if (frame.CountRolls() == 2 || frame.CountFrameRollKnockDownPins() == 10)
+            if ((frame.CountRolls() == 2 || frame.CountFrameRollKnockDownPins() == 10) && frames.Count < 10)
             {
                 frame = new Frame();
                 frame.AddRoll(knockPinNumber);
